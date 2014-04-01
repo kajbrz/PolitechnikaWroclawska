@@ -96,7 +96,7 @@ public:
 /////////////////
 ///////COUT//////
 
-ostream & operator<< (ostream &wyjscie, const sex Sex)         
+ostream & operator<< (ostream &wyjscie, const sex &Sex)         
 {
 	if(Sex==sex::male)
 		return wyjscie  << "male";
@@ -104,7 +104,7 @@ ostream & operator<< (ostream &wyjscie, const sex Sex)
 		return wyjscie << "female";
 }
 
-ostream & operator<< (ostream &wyjscie, Human human)         
+ostream & operator<< (ostream &wyjscie, Human &human)         
 {	
 	wyjscie << "\nName: " << human.get_Name() 
 		<< "\nFirstName: " << human.get_FirstName()
@@ -113,7 +113,7 @@ ostream & operator<< (ostream &wyjscie, Human human)
 	return wyjscie;
 }
 
-ostream & operator<< (ostream &wyjscie, Student student)         
+ostream & operator<< (ostream &wyjscie, Student &student)         
 {
 	
 	wyjscie << "\nName: " << student.get_Name() 
@@ -125,7 +125,7 @@ ostream & operator<< (ostream &wyjscie, Student student)
 		<< "\nNumber of Register: " << student.get_NumberOfRegister();
 	return wyjscie;
 }
-ostream & operator<< (ostream &wyjscie, Tutor tutor)         
+ostream & operator<< (ostream &wyjscie, Tutor &tutor)         
 {	
 	wyjscie << "\nName: " << tutor.get_Name() 
 		<< "\nFirstName: " << tutor.get_FirstName()
@@ -152,8 +152,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	/*KOMENTARZE 
 	//Hermetyzacja przy dziedziczeniu	
 	dziedzi¹c klasê bazow¹ jako prywatn¹ lub chronion¹ tracimy w pochodnych dostêp do metod
-	dlatego musimy pamiêtaæ o typie dziedziczenia "public" przed klas¹:
-		class Student : public Human{};
+	dlatego musimy pamiêtaæ o typie dziedziczenia "public" przed klas¹:	class Student : public Human{};
 
 	
 	//Zmienne Statyczne i dziedziczenie;
@@ -165,38 +164,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	Mo¿na skopiowaæ klasê pochodn¹ do klasy zdziedziczonej czyli student = tutor, lecz nie da siê skopiowaæ tutor= student 
 	poniewa¿ tutor posiada o wiele wiêcej zmiennych
 	*/
-	Human human1(21,sex::male,"Kajetan","Brzuszczak");
-	cout << "Human: " << human1;
-	cout << "\nWywolan: " << human1.Licznik_obiektow;
-	
-	Student student1(209869,2,21,sex::male,"Kajetan","Brzuszczak", "Electronic", "IT");	
-	cout << "\n\nStudent: " << student1 ;
-	cout << "\nWywolan: " << student1.Licznik_obiektow;
+	Human human;
+	Student student(231231,0,0,sex::female,"unknown","unknown","unknown","unknown"), student1;
+	Tutor tutor("unknown",0,0,0,0,sex::female,"unknown","unknown","unknown","unknown");
 
-	Student student2;
-	student2.get_ArrayVar()[0] = 100;
-	cout<<student2.get_ArrayVar()[0];
-	cout<<"KiERAMBA\n";
-	Tutor tutor("Doktor Nauk", 8, 888756, 10, 32,sex::female,"Boguslawa", "Len", "IT&Managment", "Mechatronics");
-	tutor.get_ArrayVar()[0] = 153;
-	cout<<"\n"<<tutor.get_ArrayVar()[0]<<"...........";
-	cout<<"KiERAMBA\n";
-	{
-		Student student3;
+	human = student;
+	student1 = tutor;
+	student = tutor;
 
-	}
-	cout<<"\n"<<tutor.get_ArrayVar()[0]<<"...........";
-	cout << "\n\nStudent2 :" << student2;
-	cout << "\n\nTutor: " << tutor;
-	
-	student2.get_ArrayVar()[0] = 100;
-	cout<<"\n"<<student2.get_ArrayVar()[0]<<"\n\n";
-	
-	student2 = tutor;
-	cout << "\n\nStudent2 after attribute" << student2;
-
-	
-
+	cout << student <<  "haha";
 	return 0;
 }
 
@@ -212,10 +188,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 ///////////////////////////
 //////KONSTRUKTURY///////////
-Human::Human(int Age=0,sex Sex=sex::male,std::string Name="unknown",std::string FirstName="unknown")
+Human::Human(int Age,sex Sex=sex::male,std::string Name="unknown",std::string FirstName="unknown")
 	:ArrayVar(NULL)
 {
-	cout<<"konstr human";
 	Licznik_obiektow++;
 	//wskaŸnik na tablicê
 	ArrayVar = new int[1];
@@ -243,7 +218,6 @@ Student::Student(int NumberOfRegister, int Semester=0,int Age=0,sex Sex=sex::mal
 				 std::string FirstName="unknown",std::string Branch="unknown", std::string Faculty="unknown")
 	: Human(Age,Sex,Name,FirstName)
 {
-	cout<<"konstr student";
 	set_NumberOfRegister(NumberOfRegister);
 	set_Semester(Semester);
 	set_Branch(Branch);
@@ -259,11 +233,10 @@ Student::Student()
 	set_Faculty("unknown");
 }
 
-Tutor::Tutor(std::string ScienceTitle = "unknown",int CountOfPublications =0, int NumberOfRegister =0, int Semester=0,int Age=0,
+Tutor::Tutor(std::string ScienceTitle,int CountOfPublications =0, int NumberOfRegister =0, int Semester=0,int Age=0,
 			 sex Sex=sex::male,std::string Name="unknown",std::string FirstName="unknown",std::string Branch="unknown", std::string Faculty="unknown")
 			 : Student(NumberOfRegister,Semester,Age,Sex,Name,FirstName,Faculty,Branch)//OKOÑ
 {
-	cout<<"Siemka konstr tutor";
 	set_ScienceTitle(ScienceTitle);
 	set_CountOfPublications(CountOfPublications);
 }
@@ -370,9 +343,8 @@ void Human::set_ArrayVar(int* _ArrayVar, int count)
 {
 	if(ArrayVar!=NULL)
 	{
-	
-		cout<<"aa: "<<Human::get_ArrayVar()[0]<<"\n";
-		delete [] Human::get_ArrayVar();
+		delete [] this->ArrayVar;
+		this->ArrayVar = NULL;
 	}
 	
 	ArrayVar = new int[count];
@@ -386,9 +358,11 @@ void Human::set_ArrayVar(int* _ArrayVar, int count)
 
 Human::~Human()
 {
-	delete [] ArrayVar;
-	ArrayVar = 0;
-	cout<<"AAA";
+	if(ArrayVar!=NULL)
+	{
+		delete [] ArrayVar;
+	}
+	ArrayVar = NULL;
 	count = 0;
 }
 
@@ -415,7 +389,6 @@ void Student::set_Faculty(std::string Faculty)
 
 Student::~Student()
 {
-	cout<<"KKK";
 }
 
 Tutor::~Tutor()
