@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-
 #include <string>
 #include <iostream>
 #include <iomanip>
@@ -13,7 +12,7 @@ using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
 {     
-    CCircle circle(4, 2, 15);
+    Circle circle(4, 2, 15);
 
 	cout.setf(ios::fixed);
 	cout.precision(2);

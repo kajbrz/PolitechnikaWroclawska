@@ -1,24 +1,44 @@
+
 #include "stdafx.h"
+#include "Circle.h"
+
+
+#include <string>
 #include <sstream>
 
+#define M_PI 3.14159265359
 
-struct location
-{
-	double circle_location_x;
-	double circle_location_y;
-};
 
-class CCircle
+void Circle::set_location(double x, double y)
 {
-private:
-	double radius;
-	location Location;
-public :
-	void set_location(double x, double y);
-    std::string get_location();
-    void set_radius(float r);
-    double get_radius();
-    CCircle(float x, float y, float r);
-    double get_circumference();
-    double get_area();
-};
+
+    this->Location.circle_location_x = x;
+    this->Location.circle_location_y = y;
+}
+std::string Circle::get_location()
+{
+	std::stringstream zwrot;
+	zwrot << Location.circle_location_x <<  "x"  <<  Location.circle_location_y;
+    return zwrot.str();
+}
+void Circle::set_radius(float r)
+{
+    this->radius = r;
+}
+double Circle::get_radius()
+{
+    return radius;
+}
+Circle::Circle(float x, float y, float r)
+{
+    set_radius(r);
+    set_location(x, y);
+}
+double Circle::get_circumference()
+{
+    return M_PI * 2 * radius;
+}
+double Circle::get_area()
+{
+    return M_PI * radius * radius;
+}
