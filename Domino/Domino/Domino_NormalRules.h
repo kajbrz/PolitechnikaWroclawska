@@ -9,6 +9,8 @@ class Domino_NormalRules :
 	public InterfaceDomino
 {
 private:
+	bool change; // 
+
 	float start_time_game; //When game was start
 	float start_player_time_game;  //When start play one of player
 
@@ -27,13 +29,16 @@ private:
 	int who_won; // 0 - nobody, 1- Player1, 2 - Player2, 3-Draw
 	
 	void get_points_each_block(int& player1, int& player2);
-	void set_rotate(::pool pool, int index, ::rotate rotate); // set  rotate in correct place
+	void set_rotate(::pool pool, int index, ::rotate rotate); // set  rotate in correct place	
+	void count_points();
+	void draw_pulls();
 public:
 	Domino_NormalRules(void);
 	~Domino_NormalRules(void);
 
-	///
+	///	
 	int get_left_value(){return left_value;}
+	int get_right_value(){return right_value;}
 	///
 	//those functions must return 0 if they haven't errors	
 	int start_game(void); //start a game
@@ -56,7 +61,10 @@ public:
 	BlockDomino get_blockdomino_jackpotI(int at);	
 	BlockDomino get_blockdomino_player1I(int at);	
 	BlockDomino get_blockdomino_player2I(int at);	
-	BlockDomino get_blockdomino_onboardI(int at);	
+	BlockDomino get_blockdomino_onboardI(int at);
+	
+	BlockDomino get_leftblockdomino();
+	BlockDomino get_rightblockdomino();
 	
 	int get_count_jackpotI(){return blockdomino_jackpot.size();}
 	int get_count_player1I(){return blockdomino_player1.size();}
@@ -64,6 +72,10 @@ public:
 	int get_count_onboardI(){return blockdomino_onboard.size();}
 
 	int test_game(void);	
-	int draw_domino(void);
+	int draw_domino(int);
+
+	int get_points_player1();
+	int get_points_player2();
+
 };
 

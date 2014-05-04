@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "ManagementDomino.h"
 
 ManagementDomino::ManagementDomino(void)

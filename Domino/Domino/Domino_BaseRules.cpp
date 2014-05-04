@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Domino_BaseRules.h"
 
 

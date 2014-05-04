@@ -13,8 +13,18 @@ public:
 	virtual int send_block(int indeks, int side) = 0; //choose block which you'll use and side  without player -> player is choosen automaticly
 	virtual int send_block(int indeks, int side, int player) = 0; //choose block which you'll use and side with player-> player is choosen
 	
-	virtual int draw_domino(void) = 0 ;
+	virtual int draw_domino(int) = 0 ;
+
+	//FOR AI//
+	virtual BlockDomino get_leftblockdomino() = 0;
+	virtual BlockDomino get_rightblockdomino() = 0;
+	
 	virtual int get_left_value() = 0;
+	virtual int get_right_value() = 0;
+	/////////////
+	virtual int get_points_player1()=0;
+	virtual int get_points_player2()=0;
+
 	/////////////////////////////////
 	/*
 	those functions must be checked in every loop
@@ -28,8 +38,7 @@ public:
 	virtual int get_who_won() = 0;
 	//////////////////////////////////////////////
 
-	/////////////////////////////////
-	
+	/////////////////////////////////	
 	virtual BlockDomino get_blockdomino_jackpotI(int at) = 0;	
 	virtual BlockDomino get_blockdomino_player1I(int at) = 0;	
 	virtual BlockDomino get_blockdomino_player2I(int at) = 0;	
@@ -41,6 +50,7 @@ public:
 	virtual int get_count_player1I()=0;
 	virtual int get_count_player2I()=0;
 	virtual int get_count_onboardI()=0;
+		
 };
 
 
