@@ -10,7 +10,7 @@ using namespace std;
 
 #include "Circle.h"
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {     
     Circle circle(4, 2, 15);
 
@@ -20,5 +20,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << "\nCircle radius is: " << circle.get_radius();
     cout << "\nCircle location is: " << circle.get_circumference();
     cout << "\nCircle area is: " << circle.get_area();  
+	return 0;
 }
 

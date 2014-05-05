@@ -1,10 +1,5 @@
-
 #include "stdafx.h"
 #include "Circle.h"
-
-
-#include <string>
-#include <sstream>
 
 #define M_PI 3.14159265359
 
@@ -12,14 +7,17 @@
 void Circle::set_location(double x, double y)
 {
 
-    this->Location.circle_location_x = x;
-    this->Location.circle_location_y = y;
+    this->location.circle_location_x = x;
+    this->location.circle_location_y = y;
 }
-std::string Circle::get_location()
+
+void Circle::set_location(::location location)
 {
-	std::stringstream zwrot;
-	zwrot << Location.circle_location_x <<  "x"  <<  Location.circle_location_y;
-    return zwrot.str();
+    this->location = location;
+}
+location Circle::get_location()
+{
+	return location;
 }
 void Circle::set_radius(float r)
 {
@@ -42,3 +40,8 @@ double Circle::get_area()
 {
     return M_PI * radius * radius;
 }
+std::ostream & operator<< (std::ostream &wyjscie, const location &s)         
+ {
+	 return wyjscie << " ( " << s.circle_location_x <<
+		 ";" << s.circle_location_y << ")";
+ }
