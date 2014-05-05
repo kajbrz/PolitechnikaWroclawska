@@ -14,17 +14,17 @@ using namespace std;
 class Tutor : public Student
 {
 private:
-	std::string ScienceTitle;
-	int CountOfPublications;
+	std::string sciencetitle;
+	int countofpublications;
 public:
 	Tutor();
-	Tutor(std::string,int,int,int,int,sex,std::string,std::string,std::string,std::string);	
+	Tutor(std::string,int,int,int,int,::sex,std::string,std::string,std::string,std::string);	
 	~Tutor();
-	std::string get_ScienceTitle();
-	void set_ScienceTitle(std::string);
+	std::string get_sciencetitle();
+	void set_sciencetitle(std::string);
 
-	int get_CountOfPublications();
-	void set_CountOfPublications(int);
+	int get_countofpublications();
+	void set_countofpublications(int);
 	
 	Tutor& Tutor::operator=(Tutor& a);
 };

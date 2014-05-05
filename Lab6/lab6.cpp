@@ -38,13 +38,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	Student pierwszy; //u¿ywamy tutraj interface który jest dziedziczony
-	pierwszy.set_Semester(5);
+	pierwszy.set_semester(5);
 
 	Student2 drugi;
-	drugi.set_Semester(9);
+	drugi.set_semester(9);
 	
 	Tutor trzeci;
-	trzeci.set_Semester(11);
+	trzeci.set_semester(11);
 	
 	//WskaŸnik na interface InterfaceMamal
 	//Przy u¿yciu tylko jednej metody tej klasy mo¿emy porównaæ dwa ró¿ne w hierarchii klasy
@@ -58,7 +58,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//funkcja isOlderFrom porównuje wartoœci Semester na róznej wysokoœci hierrachi. 
 	//Co jest jednoznaczne z polimorfizmem
 
-	if(ptr_p->IsOlderFrom(ptr_d))
+	if(ptr_p->isolderfrom(ptr_d))
 	{
 		cout << "\n\nPierwszy mlodszy";
 	}
@@ -67,7 +67,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "\n\nDrugi mlodszy";
 	}
 	
-	if(ptr_t->IsOlderFrom(ptr_d))
+	if(ptr_t->isolderfrom(ptr_d))
 	{
 		cout << "\n\ntrzeci mlodszy";
 	}

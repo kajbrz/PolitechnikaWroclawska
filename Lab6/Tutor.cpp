@@ -1,17 +1,24 @@
 #include "stdafx.h"
 #include "Tutor.h"
-Tutor::Tutor(std::string ScienceTitle,int CountOfPublications =0, int NumberOfRegister =0, int Semester=0,int Age=0,
-			 sex Sex=sex::male,std::string Name="unknown",std::string FirstName="unknown",std::string Branch="unknown", std::string Faculty="unknown")
-			 : Student(NumberOfRegister,Semester,Age,Sex,Name,FirstName,Faculty,Branch)//OKOÑ
+Tutor::Tutor(std::string sciencetitle,
+			 int countofpublications =0, 
+			 int numberofregister =0, 
+			 int semester=0,int age=0,
+			 ::sex sex=::sex::male, 
+			 std::string name="unknown",
+			 std::string firstname="unknown",
+			 std::string branch="unknown", 
+			 std::string faculty="unknown")
+			 : Student(numberofregister,semester,age,sex,name,firstname,branch,branch)//OKOÑ
 {
-	set_ScienceTitle(ScienceTitle);
-	set_CountOfPublications(CountOfPublications);
+	this->sciencetitle = sciencetitle;
+	this->countofpublications = countofpublications;
 }
 Tutor::Tutor()
-	:Student(0,0,0,sex::female,"unknown","unknown","unknown","unknown")
+	:Student(0,0,0,::sex::female,"unknown","unknown","unknown","unknown")
 {
-	set_ScienceTitle("unknown");
-	set_CountOfPublications(0);
+	this->sciencetitle = "unknown";
+	this->countofpublications = 0;
 }
 Tutor::~Tutor()
 {
@@ -19,53 +26,53 @@ Tutor::~Tutor()
 }
 
 
-std::string Tutor::get_ScienceTitle()
+std::string Tutor::get_sciencetitle()
 {
-	return this->ScienceTitle;
+	return this->sciencetitle;
 }
-void Tutor::set_ScienceTitle(std::string ScienceTitle)
+void Tutor::set_sciencetitle(std::string sciencetitle)
 {
-	this->ScienceTitle = ScienceTitle;
+	this->sciencetitle = sciencetitle;
 }
 
-int Tutor::get_CountOfPublications()
+int Tutor::get_countofpublications()
 {
-	return this->CountOfPublications;
+	return this->countofpublications;
 }
-void Tutor::set_CountOfPublications(int CountOfPublications)
+void Tutor::set_countofpublications(int countofpublications)
 {
-	this->CountOfPublications = CountOfPublications;
+	this->countofpublications = countofpublications;
 }
 
 Tutor& Tutor::operator=(Tutor& a)
 {
-	this->set_Age(a.get_Age());
-	this->set_Favorite_Books(a.get_Favorite_Books(), a.get_Count());	
-	this->set_Favorite_Books2(a.get_Favorite_Books2(), a.get_count2());
-	this->set_FirstName(a.get_FirstName());
-	this->set_Name(a.get_Name());
-	this->set_Sex(a.get_Sex());	
+	this->set_age(a.get_age());
+	this->set_favorite_books(a.get_favorite_books(), a.get_count());	
+	this->set_favorite_books2(a.get_favorite_books2(), a.get_count2());
+	this->set_firstname(a.get_firstname());
+	this->set_name(a.get_name());
+	this->set_sex(a.get_sex());	
 
-	this->set_NumberOfRegister(a.get_NumberOfRegister());
-	this->set_Semester(a.get_Semester());
-	this->set_Branch(a.get_Branch());
-	this->set_Faculty(a.get_Faculty());
+	this->set_numberofregister(a.get_numberofregister());
+	this->set_semester(a.get_semester());
+	this->set_branch(a.get_branch());
+	this->set_branch(a.get_branch());
 	
-	this->set_CountOfPublications(a.get_CountOfPublications());
-	this->set_ScienceTitle(a.get_ScienceTitle());
+	this->set_countofpublications(a.get_countofpublications());
+	this->set_sciencetitle(a.get_sciencetitle());
 	return *this;
 }
 
 ostream & operator<< (ostream &wyjscie, Tutor &tutor)         
 {	
-	wyjscie << "\nName: " << tutor.get_Name() 
-		<< "\nFirstName: " << tutor.get_FirstName()
-		<< "\nSex: " << tutor.get_Sex()
-		<< "\nAge: " << tutor.get_Age()
-		<< "\nBranch: " << tutor.get_Branch()
-		<< "\nFaculty: " << tutor.get_Faculty()
-		<< "\nNumber of Register: " << tutor.get_NumberOfRegister()
-		<< "\nTitle : " << tutor.get_ScienceTitle()
-		<< "\nCount of Publications: " << tutor.get_CountOfPublications();
+	wyjscie << "\nname: " << tutor.get_name() 
+		<< "\nfirstname: " << tutor.get_firstname()
+		<< "\nsex: " << tutor.get_sex()
+		<< "\nage: " << tutor.get_age()
+		<< "\nbranch: " << tutor.get_branch()
+		<< "\nbranch: " << tutor.get_branch()
+		<< "\nNumber of Register: " << tutor.get_numberofregister()
+		<< "\nTitle : " << tutor.get_sciencetitle()
+		<< "\ncount of Publications: " << tutor.get_countofpublications();
 	return wyjscie;
 }

@@ -19,25 +19,25 @@ class Student2 :
 	public Student
 {
 private:
-	double* Srednia;
-	int countOfSrednia;
-	degree Degree;
+	double* srednia;
+	int countofsrednia;
+	::degree degree;
 public:
 	Student2(void);
 	~Student2(void);
 	
-	void set_Average();
+	void set_average();
 	
-	void set_Degree(degree Degree);
-	inline degree get_Degree(){return Degree;}
+	void set_degree(::degree degree);
+	inline ::degree get_degree(){return degree;}
 
 	Student2& Student2::operator=(Student2& );
 	friend istream& operator>> (istream&, Student2&);
 
-	double* get_Srednia(){return this->Srednia;}
-	void set_Srednia(double* Srednia, int count2);
-	int get_countOfSrednia(){return countOfSrednia;}
-	void set_countOfSrednia(int countOfSrednia){this->countOfSrednia = countOfSrednia;} 
+	double* get_srednia(){return this->srednia;}
+	void set_srednia(double* Srednia, int count2);
+	int get_countofsrednia(){return countofsrednia;}
+	void set_countofsrednia(int countOfSrednia){this->countofsrednia = countOfSrednia;} 
 	
 };
 

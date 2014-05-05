@@ -1,115 +1,115 @@
 #include "stdafx.h"
 
 #include "Human.h"
-int Human::Licznik_obiektow = 0;
-Human::Human(int Age,sex Sex=sex::male,std::string Name="unknown",std::string FirstName="unknown")
-	:Favorite_Books(NULL)
+int Human::licznik_obiektow = 0;
+Human::Human(int age,::sex sex=::sex::male,std::string name="unknown",std::string firstname="unknown")
+	:favorite_books(NULL)
 {
-	Licznik_obiektow++;
-	//wskaŸnik na tablicê
-	Favorite_Books = new string[1];
+	licznik_obiektow++;
+	//wskaŸnik na tablicê	
+	favorite_books = new string[1];
 	count = 1;
 	//wskaŸnik na tablicê
-	set_Age(Age);
-	set_Sex(Sex);
-	set_Name(Name);
-	set_FirstName(FirstName);
+	this->age = age;
+	this->sex = sex;
+	this->name = name;
+	this->firstname = firstname;
 }
 Human::Human()
-	:Favorite_Books(NULL)
+	:favorite_books(NULL)
 {
-	Licznik_obiektow++;
-	Favorite_Books = new string[1];
+	licznik_obiektow++;
+	favorite_books = new string[1];
 	count = 1;
-	set_Age(0);
-	set_Sex(sex::female);
-	set_Name("unknown");
-	set_FirstName("unknown");
+	this->age = age;
+	this->sex = sex;
+	this->name = name;
+	this->firstname = firstname;
 }
-void Human::set_Age(int age)
+void Human::set_age(int age)
 {
-	this->Age = age;
+	this->age = age;
 }
-int Human::get_Age()
+int Human::get_age()
 {
-	return this->Age;
-}
-
-void Human::set_Sex(sex Sex)
-{
-	this->Sex = Sex;
+	return this->age;
 }
 
-sex Human::get_Sex()
+void Human::set_sex(::sex sex)
 {
-	return this->Sex; 
+	this->sex = sex;
 }
 
-void Human::set_Name(std::string Name)
+::sex Human::get_sex()
 {
-	this->Name = Name;
-}
-std::string Human::get_Name()
-{
-	return this->Name;
-}
-void Human::set_FirstName(std::string FirstName)
-{
-	this->FirstName = FirstName;
+	return this->sex; 
 }
 
-std::string Human::get_FirstName()
+void Human::set_name(std::string name)
 {
-	return this->FirstName;
+	this->name = name;
+}
+std::string Human::get_name()
+{
+	return this->name;
+}
+void Human::set_firstname(std::string firstname)
+{
+	this->firstname = firstname;
 }
 
-string* Human::get_Favorite_Books()
+std::string Human::get_firstname()
 {
-	return this->Favorite_Books;
+	return this->firstname;
 }
-void Human::set_Favorite_Books(string* Favorite_Books, int count) 
+
+string* Human::get_favorite_books()
 {
-	if(Favorite_Books!=NULL)
+	return this->favorite_books;
+}
+void Human::set_favorite_books(string* favorite_books, int count) 
+{
+	if(favorite_books!=NULL)
 	{
-		delete [] this->Favorite_Books;
-		this->Favorite_Books = NULL;
+		delete [] this->favorite_books;
+		this->favorite_books = NULL;
 	}
 	
-	this->Favorite_Books = new string[count];
+	this->favorite_books = new string[count];
 	
 	for(int i=0; i<count; i++)
 	{
-		this->Favorite_Books[i] = Favorite_Books[i];
+		this->favorite_books[i] = favorite_books[i];
 	}
 	this->count = count;
 }
 
 Human::~Human()
 {
-	if(Favorite_Books!=NULL)
+	if(favorite_books!=NULL)
 	{
-		delete [] Favorite_Books;
+		delete [] favorite_books;
 	}
-	Favorite_Books = NULL;
+	favorite_books = NULL;
 	count = 0;
 }
 
 
 Human& Human::operator=(Human& a)
 {
-	this->set_Age(a.get_Age());
-	this->set_Favorite_Books(a.get_Favorite_Books(), a.get_Count());
-	this->set_FirstName(a.get_FirstName());
-	this->set_Name(a.get_Name());
+	this->set_age(a.get_age());
+	this->set_favorite_books(a.get_favorite_books(), a.get_count());
+	this->set_firstname(a.get_firstname());
+	this->set_name(a.get_name());
 	
-	this->set_Sex(a.get_Sex());	
+	this->set_sex(a.get_sex());	
 
 	return *this;
 }
 
-ostream & operator<< (ostream &wyjscie, const sex &Sex)         
+ostream & operator<< (ostream &wyjscie, const ::sex &sex)         
 {
-	if(Sex==sex::male)
+	if(sex==::sex::male)
 		return wyjscie  << "male";
 	else
 		return wyjscie << "female";
@@ -117,10 +117,10 @@ ostream & operator<< (ostream &wyjscie, const sex &Sex)
 
 ostream & operator<< (ostream &wyjscie, Human &human)         
 {	
-	wyjscie << "\nName: " << human.get_Name() 
-		<< "\nFirstName: " << human.get_FirstName()
-		<< "\nSex: " << human.get_Sex()
-		<< "\nAge: " << human.get_Age();
+	wyjscie << "\nname: " << human.get_name() 
+		<< "\nfirstname: " << human.get_firstname()
+		<< "\nsex: " << human.get_sex()
+		<< "\nage: " << human.get_age();
 	return wyjscie;
 }
 
@@ -128,8 +128,8 @@ std::string Human::birthday()
 {
 	std::stringstream Stream;
 		
-	int Age = int(2014 - this->get_Age());
-	Stream << "1/01/" << Age;
+	int age = int(2014 - this->get_age());
+	Stream << "1/01/" << age;
 
 	return Stream.str();
 }

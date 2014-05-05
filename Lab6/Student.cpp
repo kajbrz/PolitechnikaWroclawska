@@ -1,102 +1,103 @@
 #include "stdafx.h"
 #include "Student.h"
-Student::Student(int NumberOfRegister, int Semester=0,int Age=0,sex Sex=sex::male,std::string Name="unknown",
-				 std::string FirstName="unknown",std::string Branch="unknown", std::string Faculty="unknown")
-	: Human(Age,Sex,Name,FirstName)
+Student::Student(int numberofregister, int semester=0,int age=0,::sex sex=::sex::male,std::string name="unknown",
+				 std::string firstname="unknown",std::string branch="unknown", std::string faculty="unknown")
+	: Human(age,sex,name,firstname)
 {
-	this->Favorite_Books2 = new string[1];
-	this->count2 = 1;
-	set_NumberOfRegister(NumberOfRegister);
-	set_Semester(Semester);
-	set_Branch(Branch);
-	set_Faculty(Faculty);
+	favorite_books2 = new string[1];
+	count2 = 1;
+	this->numberofregister = numberofregister;
+	this->semester = semester;
+	this->branch = branch;
+	this->faculty = faculty;
 }
 
 Student::Student()
-	: Human(0,sex::male,"unknown","unknown")	
+	: Human(0,::sex::male,"unknown","unknown")	
 {
 	
-	this->Favorite_Books2 = new string[1];
+	this->favorite_books2 = new string[1];
 	this->count2 = 1;
-	set_NumberOfRegister(0);
-	set_Semester(0);
-	set_Branch("unknown");
-	set_Faculty("unknown");
+	this->numberofregister = 0;
+	this->semester = 0;
+	this->branch = "unknown";
+	this->faculty = "unknown";
 }
-
 Student::~Student()
 {
-	delete [] Favorite_Books2;
+	delete [] favorite_books2;
 }
 
-void Student::set_NumberOfRegister(int NumberOfRegister)
+void Student::set_numberofregister(int numberofregister)
 {
-	this->NumberOfRegister = NumberOfRegister;
+	this->numberofregister = numberofregister;
 }
 
-void Student::set_Semester(int Semester)
+void Student::set_semester(int semester)
 {
-	this->Semester = Semester;
+	this->semester = semester;
 }
 
-int Student::get_NumberOfRegister()
+int Student::get_numberofregister()
 {
-	return this->NumberOfRegister;
+	return this->numberofregister;
 }
 
-int Student::get_Semester()
+int Student::get_semester()
 {
-	return this->Semester;
+	return this->semester;
 }
 
-std::string Student::get_Branch()
+std::string Student::get_branch()
 {
-	return this->Branch;
+	return this->branch;
 }
-void Student::set_Branch(std::string Branch)
+void Student::set_branch(std::string branch)
 {
-	this->Branch = Branch;
-}
-
-std::string Student::get_Faculty()
-{
-	return this->Faculty;
-}
-void Student::set_Faculty(std::string Faculty)
-{
-	this->Faculty = Faculty;
+	this->branch = branch;
 }
 
-void Student::set_Favorite_Books2(string* _Favorite_Books2, int count2) 
+std::string Student::get_faculty()
 {
-	if(Favorite_Books2!=NULL)
+	return this->faculty;
+}
+void Student::set_faculty(std::string faculty)
+{
+	this->faculty = faculty;
+}
+
+void Student::set_favorite_books2(string* _favorite_books2, int count2) 
+{
+	if(favorite_books2!=NULL)
 	{
-		delete [] this->Favorite_Books2;
-		this->Favorite_Books2 = NULL;
+		delete [] this->favorite_books2;
+		this->favorite_books2 = NULL;
 	}
 	
-	Favorite_Books2 = new string[count2];
+	favorite_books2 = new string[count2];
 	
 	for(int i=0; i<count2; i++)
 	{
-		this->Favorite_Books2[i] = _Favorite_Books2[i];
+		this->favorite_books2[i] = _favorite_books2[i];
 	}
 	this->count2 = count2;
 }
 
 Student& Student::operator=(Student& a)
 {	
-	this->set_Age(a.get_Age());
-	this->set_Favorite_Books(a.get_Favorite_Books(), a.get_Count());
-	this->set_Favorite_Books2(a.get_Favorite_Books2(), a.get_count2());
-	this->set_FirstName(a.get_FirstName());
-	this->set_Name(a.get_Name());
-	this->set_Sex(a.get_Sex());	
 
-	this->set_NumberOfRegister(a.get_NumberOfRegister());
-	this->set_Semester(a.get_Semester());
-	this->set_Branch(a.get_Branch());
-	this->set_Faculty(a.get_Faculty());
+	set_age(a.get_age());
+	// age = a.age //Acces is denied
+	set_favorite_books(a.get_favorite_books(), a.get_count());
+	set_favorite_books2(a.get_favorite_books2(), a.get_count2());
+	set_firstname(a.get_firstname());
+	set_name(a.get_name());
+	set_sex(a.get_sex());	
+
+	set_numberofregister(a.get_numberofregister());
+	set_semester(a.get_semester());
+	set_branch(a.get_branch());
+	set_faculty(a.get_faculty());
 	
 	return *this;
 }
@@ -105,24 +106,24 @@ Student& Student::operator=(Student& a)
 ostream & operator<< (ostream &wyjscie, Student &student)         
 {
 	
-	wyjscie << "\nName: " << student.get_Name() 
-		<< "\nFirstName: " << student.get_FirstName()
-		<< "\nSex: " << student.get_Sex()
-		<< "\nAge: " << student.get_Age()
-		<< "\nBranch: " << student.get_Branch()
-		<< "\nFaculty: " << student.get_Faculty()
-		<< "\nNumber of Register: " << student.get_NumberOfRegister();
+	wyjscie << "\nname: " << student.get_name() 
+		<< "\nfirstname: " << student.get_firstname()
+		<< "\nsex: " << student.get_sex()
+		<< "\nage: " << student.get_age()
+		<< "\nbranch: " << student.get_branch()
+		<< "\nfaculty: " << student.get_faculty()
+		<< "\nNumber of Register: " << student.get_numberofregister();
 	return wyjscie;
 }
 std::string Student::birthday()
 {
-	std::stringstream Stream;
+	std::stringstream stream;
 		
-	int Age = int(2014 - this->get_Age()) + 2;
-	Stream << "1/01/" << Age;
+	int age = int(2014 - this->get_age()) + 2;
+	stream << "1/01/" << age;
 
-	return Stream.str();
+	return stream.str();
 }
 
 
-//int Student::operator<(InterfaceMamal* interfaceMamal){	return ((interfaceMamal->Age) < this->get_Age());}
+//int Student::operator<(InterfaceMamal* interfaceMamal){	return ((interfaceMamal->age) < this->get_age());}

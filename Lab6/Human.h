@@ -18,43 +18,43 @@ class Human
 	:public Mamal
 {
 private:
-	int Age;
-	sex Sex;
-	std::string Name;
-	std::string FirstName;
+	int age;
+	enum sex sex;
+	std::string name;
+	std::string firstname;
 
-	string* Favorite_Books; //favorite books
+	string* favorite_books; //favorite books
 
 	int count;
 public:
-	static int Licznik_obiektow;
+	static int licznik_obiektow;
 	Human();
-	Human(int,sex,std::string,std::string);
+	Human(int,enum sex,std::string,std::string);
 	virtual ~Human();
 
-	int get_Age();
-	void set_Age(int age);
+	int get_age();
+	void set_age(int age);
 
 	
-	string* get_Favorite_Books();
-	void set_Favorite_Books(string*, int);
+	string* get_favorite_books();
+	void set_favorite_books(string*, int);
 
-	int get_Count(){return count;};
+	int get_count(){return count;};
 
-	sex get_Sex();
-	void set_Sex(sex);
+	enum sex get_sex();
+	void set_sex(enum sex);
 
-	std::string get_Name();
-	void set_Name(std::string);
+	std::string get_name();
+	void set_name(std::string);
 
-	std::string get_FirstName();
-	void set_FirstName(std::string);
+	std::string get_firstname();
+	void set_firstname(std::string);
 
 	Human& operator=(Human&);
 
 	virtual std::string birthday();
 };
 
-ostream & operator<< (ostream &wyjscie, const sex &Sex); 
+ostream & operator<< (ostream &wyjscie, const sex &sex); 
 ostream & operator<< (ostream &wyjscie, Human &human) ;
 #endif

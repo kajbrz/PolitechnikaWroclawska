@@ -14,37 +14,35 @@ using namespace std;
 class Student : public Human, public InterfaceMamal
 {
 private:
-	int NumberOfRegister;
-	int Semester;
-	std::string Branch;
-	std::string Faculty;
-	string* Favorite_Books2;
+	int numberofregister;
+	int semester;
+	std::string branch;
+	std::string faculty;
+	string* favorite_books2;
 	int count2;
 public:
 	Student();
-    Student(int, int,int,sex,std::string,std::string,std::string,std::string);
+    Student(int, int,int,enum sex,std::string,std::string,std::string,std::string);
 	~Student();
-	int get_NumberOfRegister();
-	void set_NumberOfRegister(int);
+	int get_numberofregister();
+	void set_numberofregister(int);
 
-	int get_Semester();
-	void set_Semester(int);
+	int get_semester();
+	void set_semester(int);
 	
-	std::string get_Branch();
-	
-	
+	std::string get_branch();
 
-	void set_Branch(std::string);
+	void set_branch(std::string);
 
-	std::string get_Faculty();
-	void set_Faculty(std::string);
+	std::string get_faculty();
+	void set_faculty(std::string);
 	
 	Student& operator=(Student&);
 
 	int get_count2(){return count2;}
 	
-	string* get_Favorite_Books2(){return Favorite_Books2;}
-	void set_Favorite_Books2(string*, int);
+	string* get_favorite_books2(){return favorite_books2;}
+	void set_favorite_books2(string*, int);
 	virtual string birthday();
 
 	

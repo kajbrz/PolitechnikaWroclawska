@@ -8,15 +8,15 @@ public:
 	InterfaceMamal(void);
 	~InterfaceMamal(void);
 	
-	virtual int get_Semester() = 0;
-	virtual int IsOlderFrom(InterfaceMamal* interfaceMamal)
+	virtual int get_semester() = 0;
+	virtual int isolderfrom(InterfaceMamal* interfaceMamal)
 	{
 		/*
 		cout << "\nWywolanie funkcji:";
 		cout << "pointer: " << interfaceMamal->get_Semester();
 		cout << "this: " << this->get_Semester();
 		*/
-		if(interfaceMamal->get_Semester() > this->get_Semester())
+		if(interfaceMamal->get_semester() > this->get_semester())
 		{
 			return 1;
 		}
