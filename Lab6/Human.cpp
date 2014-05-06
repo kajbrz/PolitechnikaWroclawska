@@ -1,15 +1,13 @@
-#include "stdafx.h"
-
 #include "Human.h"
 int Human::licznik_obiektow = 0;
-Human::Human(int age,::sex sex=::sex::male,std::string name="unknown",std::string firstname="unknown")
+Human::Human(int age,::sex sex=male,std::string name="unknown",std::string firstname="unknown")
 	:favorite_books(NULL)
 {
 	licznik_obiektow++;
-	//wskaŸnik na tablicê	
+	//wskaÅºnik na tablice
 	favorite_books = new string[1];
 	count = 1;
-	//wskaŸnik na tablicê
+	//wskaÅ¸nik na tablicÃª
 	this->age = age;
 	this->sex = sex;
 	this->name = name;
@@ -42,7 +40,7 @@ void Human::set_sex(::sex sex)
 
 ::sex Human::get_sex()
 {
-	return this->sex; 
+	return this->sex;
 }
 
 void Human::set_name(std::string name)
@@ -67,16 +65,16 @@ string* Human::get_favorite_books()
 {
 	return this->favorite_books;
 }
-void Human::set_favorite_books(string* favorite_books, int count) 
+void Human::set_favorite_books(string* favorite_books, int count)
 {
 	if(favorite_books!=NULL)
 	{
 		delete [] this->favorite_books;
 		this->favorite_books = NULL;
 	}
-	
+
 	this->favorite_books = new string[count];
-	
+
 	for(int i=0; i<count; i++)
 	{
 		this->favorite_books[i] = favorite_books[i];
@@ -101,13 +99,13 @@ Human& Human::operator=(Human& a)
 	this->set_favorite_books(a.get_favorite_books(), a.get_count());
 	this->set_firstname(a.get_firstname());
 	this->set_name(a.get_name());
-	
-	this->set_sex(a.get_sex());	
+
+	this->set_sex(a.get_sex());
 
 	return *this;
 }
 
-ostream & operator<< (ostream &wyjscie, const ::sex &sex)         
+ostream & operator<< (ostream &wyjscie, const ::sex &sex)
 {
 	if(sex==::sex::male)
 		return wyjscie  << "male";
@@ -115,9 +113,9 @@ ostream & operator<< (ostream &wyjscie, const ::sex &sex)
 		return wyjscie << "female";
 }
 
-ostream & operator<< (ostream &wyjscie, Human &human)         
-{	
-	wyjscie << "\nname: " << human.get_name() 
+ostream & operator<< (ostream &wyjscie, Human &human)
+{
+	wyjscie << "\nname: " << human.get_name()
 		<< "\nfirstname: " << human.get_firstname()
 		<< "\nsex: " << human.get_sex()
 		<< "\nage: " << human.get_age();
@@ -127,7 +125,7 @@ ostream & operator<< (ostream &wyjscie, Human &human)
 std::string Human::birthday()
 {
 	std::stringstream Stream;
-		
+
 	int age = int(2014 - this->get_age());
 	Stream << "1/01/" << age;
 

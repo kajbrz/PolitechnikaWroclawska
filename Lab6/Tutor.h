@@ -18,15 +18,15 @@ private:
 	int countofpublications;
 public:
 	Tutor();
-	Tutor(std::string,int,int,int,int,::sex,std::string,std::string,std::string,std::string);	
+	Tutor(std::string,int,int,int,int,::sex,std::string,std::string,std::string,std::string);
 	~Tutor();
 	std::string get_sciencetitle();
 	void set_sciencetitle(std::string);
 
 	int get_countofpublications();
 	void set_countofpublications(int);
-	
-	Tutor& Tutor::operator=(Tutor& a);
+
+	Tutor& operator=(Tutor& a);
 };
 
 ostream & operator<< (ostream &wyjscie, Tutor &tutor)  ;

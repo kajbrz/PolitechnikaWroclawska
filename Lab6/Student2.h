@@ -13,7 +13,7 @@ enum degree
 	lic,
 };
 
-	
+
 
 class Student2 :
 	public Student
@@ -24,24 +24,25 @@ private:
 	::degree degree;
 public:
 	Student2(void);
+	Student2(double [] , int , enum degree, int , int,int , ::sex, std::string , std::string, std::string , std::string );
 	~Student2(void);
-	
+
 	void set_average();
-	
+
 	void set_degree(::degree degree);
 	inline ::degree get_degree(){return degree;}
 
-	Student2& Student2::operator=(Student2& );
+	Student2& operator=(Student2& );
 	friend istream& operator>> (istream&, Student2&);
 
 	double* get_srednia(){return this->srednia;}
 	void set_srednia(double* Srednia, int count2);
 	int get_countofsrednia(){return countofsrednia;}
-	void set_countofsrednia(int countOfSrednia){this->countofsrednia = countOfSrednia;} 
-	
+	void set_countofsrednia(int countOfSrednia){this->countofsrednia = countOfSrednia;}
+
 };
 
 
 ostream & operator<< (ostream &wyjscie, const degree Degree);
-ostream & operator<< (ostream &wyjscie, Student2 &student);     
+ostream & operator<< (ostream &wyjscie, Student2 &student);
 #endif

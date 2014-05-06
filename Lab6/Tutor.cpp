@@ -1,15 +1,14 @@
-#include "stdafx.h"
 #include "Tutor.h"
 Tutor::Tutor(std::string sciencetitle,
-			 int countofpublications =0, 
-			 int numberofregister =0, 
+			 int countofpublications =0,
+			 int numberofregister =0,
 			 int semester=0,int age=0,
-			 ::sex sex=::sex::male, 
+			 ::sex sex=male,
 			 std::string name="unknown",
 			 std::string firstname="unknown",
-			 std::string branch="unknown", 
+			 std::string branch="unknown",
 			 std::string faculty="unknown")
-			 : Student(numberofregister,semester,age,sex,name,firstname,branch,branch)//OKOÑ
+			 : Student(numberofregister,semester,age,sex,name,firstname,branch,branch)//OKOÃ‘
 {
 	this->sciencetitle = sciencetitle;
 	this->countofpublications = countofpublications;
@@ -47,25 +46,25 @@ void Tutor::set_countofpublications(int countofpublications)
 Tutor& Tutor::operator=(Tutor& a)
 {
 	this->set_age(a.get_age());
-	this->set_favorite_books(a.get_favorite_books(), a.get_count());	
+	this->set_favorite_books(a.get_favorite_books(), a.get_count());
 	this->set_favorite_books2(a.get_favorite_books2(), a.get_count2());
 	this->set_firstname(a.get_firstname());
 	this->set_name(a.get_name());
-	this->set_sex(a.get_sex());	
+	this->set_sex(a.get_sex());
 
 	this->set_numberofregister(a.get_numberofregister());
 	this->set_semester(a.get_semester());
 	this->set_branch(a.get_branch());
 	this->set_branch(a.get_branch());
-	
+
 	this->set_countofpublications(a.get_countofpublications());
 	this->set_sciencetitle(a.get_sciencetitle());
 	return *this;
 }
 
-ostream & operator<< (ostream &wyjscie, Tutor &tutor)         
-{	
-	wyjscie << "\nname: " << tutor.get_name() 
+ostream & operator<< (ostream &wyjscie, Tutor &tutor)
+{
+	wyjscie << "\nname: " << tutor.get_name()
 		<< "\nfirstname: " << tutor.get_firstname()
 		<< "\nsex: " << tutor.get_sex()
 		<< "\nage: " << tutor.get_age()
