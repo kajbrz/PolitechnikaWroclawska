@@ -14,9 +14,9 @@ block_of_every_player - How many blocks players get on the start
 
 Domino_NormalRules::Domino_NormalRules(void)
 	:Domino_BaseRules(60*10,60*1,rand()%2,6)
-	
+
 {
-	status = ::status::stop;
+	status =stop;
 	points_minimum = 100;
 }
 
@@ -28,16 +28,16 @@ Domino_NormalRules::~Domino_NormalRules(void)
 int Domino_NormalRules::start_game(void)
 {
 	change = false;
-	if(status==::status::start)	
+	if(status== start)
 		return -1;
-	else if(status==::status::pause)
+	else if(status== pause)
 	{
-		status = ::status::start;
+		status =  start;
 	}
 	else
 	{
-		status = ::status::start;
-		who_won = points_player1 = points_player2 =  0; 
+		status =  start;
+		who_won = points_player1 = points_player2 =  0;
 		draw_pulls();
 	}
 
@@ -46,47 +46,47 @@ int Domino_NormalRules::start_game(void)
 
 int Domino_NormalRules::stop_game(void)
 {
-	if(status==::status::stop)	
+	if(status== stop)
 		return -1;
 	else
-		status = ::status::stop;
+		status =  stop;
 	clear_board();
-	status = ::status::stop;
-	
+	status =  stop;
+
 	return 0;
 }
 
 int Domino_NormalRules::pause_game(void)
 {
-	if(status==::status::pause || status==::status::stop)	
+	if(status== pause || status== stop)
 		return -1;
 	else
-		status = ::status::stop;
-	
-	status = ::status::stop;
-	
+		status =  stop;
+
+	status =  stop;
+
 	return 0;
 }
 
 int Domino_NormalRules::send_block(int indeks, int side)
 {
-	
+
 	/////////////////////////////
 	////Testing correct var at///
 	::pool pool;
 	if(who_plays==0)
-		pool = pool::player1;
+		pool = player1;
 	else
-		pool = pool::player2;
+		pool = player2;
 	BlockDomino temp;
-	if(pool == pool::player1)
+	if(pool == player1)
 	{
 		if(indeks<0 || indeks>=get_count_player1())
 			return -1;
 		temp = get_blockdomino_player1I(indeks);
 	}
 	else
-	{		
+	{
 		if(indeks<0 || indeks>=get_count_player1())
 			return -1;
 		temp = get_blockdomino_player2I(indeks);
@@ -103,18 +103,18 @@ int Domino_NormalRules::send_block(int indeks, int side)
 	{
 		if(temp.get_value_down() == temp.get_value_up())
 		{
-			set_rotate(pool,indeks,rotate::vertical);			
+			set_rotate(pool,indeks, vertical);
 			left_vertical = false;
 			left_value = right_value = temp.get_value_down();
 		}
 		else
-		{				
-			set_rotate(pool,indeks,rotate::horizontal_left);
+		{
+			set_rotate(pool,indeks, horizontal_left);
 			left_vertical = false;
 			left_value = temp.get_value_up();
 			right_value = temp.get_value_down();
 		}
-		transferdomino(pool, pool::onboard, temp_array_of_index,1,false);	
+		transferdomino(pool,onboard, temp_array_of_index,1,false);
 		no_move_error = false;
 	}
 	if(no_move_error == true)
@@ -125,49 +125,49 @@ int Domino_NormalRules::send_block(int indeks, int side)
 			{
 				if(temp.get_value_down() == temp.get_value_up())
 				{
-					set_rotate(pool,indeks,rotate::vertical);
+					set_rotate(pool,indeks, vertical);
 					left_value = temp.get_value_down();
 					left_vertical = true;
 				}
 				else if(left_value == temp.get_value_down())
-				{					
-					set_rotate(pool,indeks,rotate::horizontal_left);
+				{
+					set_rotate(pool,indeks, horizontal_left);
 					left_value = temp.get_value_up();
 					left_vertical = false;
 				}
 				else
-				{				
-					set_rotate(pool,indeks,rotate::horizontal_right);
+				{
+					set_rotate(pool,indeks, horizontal_right);
 					left_value = temp.get_value_down();
 					left_vertical = false;
 				}
-				transferdomino(pool, pool::onboard, temp_array_of_index,1,false);	
+				transferdomino(pool,  onboard, temp_array_of_index,1,false);
 				no_move_error = false;
 			}
 		}
 		else
-		{				
+		{
 			if(right_value == temp.get_value_down()|| right_value == temp.get_value_up())
 			{
 				if(temp.get_value_down() == temp.get_value_up())
 				{
-					set_rotate(pool,indeks,rotate::vertical);
+					set_rotate(pool,indeks, vertical);
 					right_value = temp.get_value_down();
 					right_vertical = true;
 				}
 				else if(right_value == temp.get_value_down())
-				{	
-					set_rotate(pool,indeks,rotate::horizontal_right);
+				{
+					set_rotate(pool,indeks, horizontal_right);
 					right_value = temp.get_value_up();
 					right_vertical = false;
 				}
 				else
-				{				
-					set_rotate(pool,indeks,rotate::horizontal_left);
+				{
+					set_rotate(pool,indeks, horizontal_left);
 					right_value = temp.get_value_down();
 					right_vertical = false;
 				}
-				transferdomino(pool, pool::onboard, temp_array_of_index,1,true);
+				transferdomino(pool,  onboard, temp_array_of_index,1,true);
 				no_move_error = false;
 			}
 		}
@@ -285,7 +285,7 @@ int Domino_NormalRules::test_game(void)
 			else
 				points_player2 +=sum;
 		}
-		
+
 		change = false;
 		change_player();
 	}
@@ -312,7 +312,7 @@ int Domino_NormalRules::test_game(void)
 	}
 
 	if(blockdomino_player1.size() == 0)
-	{		
+	{
 		count_points();
 		clear_board();
 		draw_pulls();
@@ -320,18 +320,18 @@ int Domino_NormalRules::test_game(void)
 		return -1; //The round is end
 	}
 	else if(blockdomino_player2.size() == 0)
-	{		
+	{
 		count_points();
 		clear_board();
-		draw_pulls();			
+		draw_pulls();
 		change_player();
 		return -1;	//The round is end
 	}
 	else if(blockdomino_jackpot.size() == 0)
-	{		
+	{
 		count_points();
 		clear_board();
-		draw_pulls();			
+		draw_pulls();
 		change_player();
 		return -1;	//The round is end
 	}
@@ -341,7 +341,7 @@ int Domino_NormalRules::test_game(void)
 
 void Domino_NormalRules::set_rotate(::pool pool, int index, ::rotate rotate) // set  rotate in correct place
 {
-	if(pool == pool::player1)
+	if(pool ==  player1)
 	{
 		blockdomino_player1.at(index).set_rotate(rotate);
 	}
@@ -363,9 +363,9 @@ int Domino_NormalRules::draw_domino(int whoplay = -1)
 	{
 		::pool player;
 		if(who_plays==0)
-			player = pool::player1;
+			player =  player1;
 		else
-			player = pool::player2;
+			player =  player2;
 
 		int *temp_array_of_blocks = new int[1];
 		temp_array_of_blocks[0] = 0;
@@ -377,7 +377,7 @@ int Domino_NormalRules::draw_domino(int whoplay = -1)
 
 int Domino_NormalRules::get_who_won()
 {
-	return who_won;	
+	return who_won;
 }
 
 
@@ -385,18 +385,18 @@ void Domino_NormalRules::get_points_each_block(int& player1, int& player2)
 {
 	player1 = 0;
 	player2 = 0;
-		
+
 	for(int i=0; i<get_count_player1I(); i++)
 	{
-		player1 += 
+		player1 +=
 			blockdomino_player1.at(i).get_value_up() +
 			blockdomino_player1.at(i).get_value_down();
 	}
 
-		
+
 	for(int i=0; i<get_count_player2I(); i++)
 	{
-		player2 += 
+		player2 +=
 			blockdomino_player2.at(i).get_value_up() +
 			blockdomino_player2.at(i).get_value_down();
 	}
@@ -418,7 +418,7 @@ BlockDomino Domino_NormalRules::get_leftblockdomino()
 	return blockdomino_onboard[0];
 }
 BlockDomino Domino_NormalRules::get_rightblockdomino()
-{	
+{
 	return blockdomino_onboard[blockdomino_onboard.size()-1];
 }
 
@@ -427,7 +427,7 @@ void Domino_NormalRules::count_points()
 {
 	int sum_block_point_player1=0;
 	int sum_block_point_player2=0;
-		
+
 	get_points_each_block(sum_block_point_player1, sum_block_point_player2);
 
 
@@ -454,23 +454,23 @@ void Domino_NormalRules::count_points()
 
 void Domino_NormalRules::draw_pulls(void)
 {
-	
-		who_plays = rand()%2; //random who move first		
-	
+
+		who_plays = rand()%2; //random who move first
+
 		//set when players start a game
 		start_time_game = (float)GetTickCount();
 		start_player_time_game = (float)GetTickCount();
 
-		draw_pull(28,::pool::jackpot);  //add to jackpot 28 blocks of domino
-		
+		draw_pull(28,:: jackpot);  //add to jackpot 28 blocks of domino
+
 		int *temp_array_of_blocks = new int[block_of_every_player];
 		for(int i=0; i<block_of_every_player; i++)
 		{
 			temp_array_of_blocks[i] = i;
 		}
-		transferdomino(pool::jackpot, pool::player1, temp_array_of_blocks, block_of_every_player, false);
-		transferdomino(pool::jackpot, pool::player2, temp_array_of_blocks, block_of_every_player, false);
-		delete [] temp_array_of_blocks; 
+		transferdomino( jackpot,  player1, temp_array_of_blocks, block_of_every_player, false);
+		transferdomino( jackpot,  player2, temp_array_of_blocks, block_of_every_player, false);
+		delete [] temp_array_of_blocks;
 
 		left_value = -1; // -1 it's means without start value
 		right_value = -1; // as above

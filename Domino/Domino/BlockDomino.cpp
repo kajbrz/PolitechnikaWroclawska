@@ -15,15 +15,15 @@ BlockDomino::BlockDomino(int value_up=-1, int value_down=-1)
 	else
 		this->value_down = 0;
 
-	rotate = rotate::no_rotate;
-	
+	rotate = no_rotate;
+
 }
 BlockDomino::BlockDomino()
 {
 	value_up   = 0;
 	value_down = 0;
-	
-	rotate = rotate::no_rotate;
+
+	rotate = no_rotate;
 }
 
 BlockDomino::~BlockDomino(void)
@@ -31,7 +31,7 @@ BlockDomino::~BlockDomino(void)
 }
 
 void BlockDomino::set_value_up(int value_up)
-{	
+{
 	if(value_up>=0 && value_up<=6)
 		this->value_up = value_up;
 	else
@@ -41,9 +41,9 @@ int BlockDomino::get_value_up()
 {
 	return value_up;
 }
-	
+
 void BlockDomino::set_value_down(int value_down)
-{	
+{
 	if(value_down>=0 && value_down<=6)
 		this->value_down = value_down;
 	else

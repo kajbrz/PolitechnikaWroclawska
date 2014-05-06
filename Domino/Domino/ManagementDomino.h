@@ -1,6 +1,6 @@
 #pragma once
 #include "boarddomino.h"
-
+#include <cstdlib>
 /*
 This class has function to move blocks from one to another place
 */

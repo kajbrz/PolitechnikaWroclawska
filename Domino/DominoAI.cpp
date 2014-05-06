@@ -1,7 +1,7 @@
 #include "DominoAI.h"
 #include <iostream>
-
-DominoAI::DominoAI(InterfaceDomino *game, enum level level = level::random, int whoIam = 1)
+#include <cstdlib>
+DominoAI::DominoAI(InterfaceDomino *game, enum level level =  random, int whoIam = 1)
 	: game(game)
 {
 	this->level = level;
@@ -10,6 +10,7 @@ DominoAI::DominoAI(InterfaceDomino *game, enum level level = level::random, int 
 DominoAI::DominoAI(void)
 {
 	game = nullptr;
+	//game = NULL;
 }
 
 
@@ -40,16 +41,16 @@ bool DominoAI::play()
 
 		return true;
 	}
-	
+
 	BlockDomino left_side  = game->get_leftblockdomino();
 	BlockDomino right_side  = game->get_rightblockdomino();
-	
+
 	int left_side_value = game->get_left_value();
 	int right_side_value = game->get_right_value();
 
-	bool left_double; 
+	bool left_double;
 	bool right_double;
-	
+
 	if(left_side.get_rotate() == rotate::vertical)
 	{
 		left_side_value *= 2;
@@ -65,7 +66,7 @@ bool DominoAI::play()
 
 	int modulo_right = right_side_value % 5;
 
-	
+
 	vector<indexing> index_available;
 	int many;
 	if(whoIam==0)
@@ -93,7 +94,7 @@ bool DominoAI::play()
 			}
 		}
 	}
-	
+
 	if(whoIam==1)
 	{
 		many = game->get_count_player2I();
@@ -105,9 +106,9 @@ bool DominoAI::play()
 			bool doublevalue;
 			if(up==down)
 				doublevalue = true;
-			else				
+			else
 				doublevalue = true;
-			
+
 			if(up==game->get_left_value()
 				|| down == game->get_left_value())
 			{
@@ -127,7 +128,7 @@ bool DominoAI::play()
 		game->draw_domino(whoIam);
 		return false;
 	}
-	
+
 	int choosen_index = 0;
 	int choosen_value = 0;/*
 	for(int i=0; i<many_indexes; i++)
@@ -144,8 +145,8 @@ bool DominoAI::play()
 			temp = game->get_blockdomino_player2I(i);
 		}
 
-		
-		
+
+
 	}*/
 	choosen_index = rand()%index_available.size();
 
@@ -154,7 +155,7 @@ bool DominoAI::play()
 		side = 0;
 	else
 		side = 1;
-	
+
 	std::cout << "Send block: [" << game->get_blockdomino_player2I(index_available[choosen_index].index).get_value_up()
 		<< ";" << game->get_blockdomino_player2I(choosen_index).get_value_down() << "]";
 

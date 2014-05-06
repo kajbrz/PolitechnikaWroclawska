@@ -7,7 +7,7 @@ Domino_BaseRules::Domino_BaseRules(int game_time,
 				int who_plays,
 				int block_of_every_player)
 {
-	this->status = status::stop;
+	this->status = stop;
 	this->game_time = game_time;
 	this->game_part_time = game_part_time;
 	this->who_plays = who_plays;
