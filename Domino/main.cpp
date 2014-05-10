@@ -29,7 +29,7 @@ sf::Font font;
 void show_p1_block(sf::RenderTexture &blockdominoP1, sf::Image &blockdomino_image, InterfaceDomino *newGame, int& length, int many);
 void show_p2_block(sf::RenderTexture &blockdominoP2, sf::Image &blockdomino_image, InterfaceDomino *newGame, int& length, int many);
 
-sf::Sprite blockdominoBoardf(sf::RenderTexture &blockdominoBoard, sf::Image &blockdomino_image, InterfaceDomino *newGame);
+void blockdominoBoardf(sf::RenderTexture &blockdominoBoard, sf::Image &blockdomino_image, InterfaceDomino *newGame);
 int INDEKS = -1;
 int memoryplayer = 0;
 bool changep1 = true;
@@ -154,6 +154,12 @@ int main()
 	b_DRAW.set_font(font);
 	b_DRAW.set_posistion(sf::Vector2f(GameWidth - 170.f, GameHeight/2.f + 150));
 
+	MyButton b_RESTART;
+	b_RESTART.set_Texture_button(buttonT);
+	b_RESTART.set_label("Restart");
+	b_RESTART.set_font(font);
+	b_RESTART.set_posistion(sf::Vector2f(GameWidth - 170.f, GameHeight/2.f + 225));
+
 
 	DominoAI computer(newGame,level::random, 1);
 
@@ -163,19 +169,26 @@ int main()
 
 	while(window.isOpen())
 	{
-
-
-		if(memoryplayer!= newGame->get_who_play() || newGame->test_game()==-1)
+		cout << newGame;
+		int test =  newGame->test_game();
+		if(test == -2)
 		{
-			thread_console.launch();
+			break;
+		}
+		if(memoryplayer!= newGame->get_who_play() || test==-1)
+		{
+			//thread_console.launch();
 			changeboard = true;
 			changep1 = true;
 			changep2 = true;
 			memoryplayer = newGame->get_who_play();
 		}
 		if(computer.play())
+		{
 			changep2 = true;
-		//thread_console.launch();
+			
+		}
+			//thread_console.launch();
 
 		//wyswietl(newGame);
 		///////////////////
@@ -198,7 +211,14 @@ int main()
 					{//is clicked a domino?
 						changep1 = true;
 					}
-
+					if(b_RESTART.is_clickedf((sf::Vector2f)sf::Mouse::getPosition(window)))
+					{
+						newGame->stop_game();
+						newGame->start_game();
+						changeboard = true;
+						changep1 = true;
+						changep2 = true;
+					}
 					if(b_LEFT.is_clickedf((sf::Vector2f)sf::Mouse::getPosition(window)))
 					{
 						if(INDEKS!=-1 && newGame->get_who_play()==0)
@@ -271,6 +291,8 @@ int main()
 		blockdominoP2S.setPosition(widthcalc2-100, 40.f);
 		blockdominoP2S.setTexture(blockdominoP2.getTexture());
 		window.draw(blockdominoP2S);
+		
+		//text.setRotation(90);
 
 		window.draw(text);
 
@@ -311,20 +333,80 @@ int main()
 		if(changeboard==true)
 		{
 			changeboard = false;
-			boarddominoS = blockdominoBoardf(blockdominoBoard,blockdomino_image, newGame);
+			blockdominoBoardf(blockdominoBoard,blockdomino_image, newGame);
+
 		}
 		else
 		{
-			boarddominoS.setTexture(blockdominoBoard.getTexture());
+			;
 		}
+
+		boarddominoS.setTexture(blockdominoBoard.getTexture());
 		boarddominoS.setPosition(0,200);
+
 		window.draw(boarddominoS);
+		
+		window.draw(b_RESTART.get_button());
 		window.draw(b_LEFT.get_button());
 		window.draw(b_RIGHT.get_button());
 		window.draw(b_DRAW.get_button());
 
 		window.display();
 	}
+	sf::Clock clock;
+
+	sf::String winner[3];
+	winner[0] = "Player 1 Wins!";
+	winner[1] = "Player 2 Wins!";
+	winner[2] = "Draw game, sorry!";
+
+	//sf::Text text;
+	text.setFont(font);
+	text.setColor(sf::Color::Green);
+	text.setPosition(GameWidth/2.f,GameHeight/2.f);
+	switch(newGame->get_who_won())
+		{
+		case 1:
+			{
+				text.setString(winner[0]);
+				break;
+			}
+
+		case 2:
+			{
+				text.setString(winner[1]);
+				break;
+			}
+		case 3:
+			{				
+				text.setString(winner[2]);
+				break;
+			}
+		}
+
+	while(window.isOpen())
+	{
+		
+		sf::Event event;
+		if(window.pollEvent(event))
+		{
+			if(event.type == sf::Event::Closed)
+				window.close();
+		}
+
+				
+		window.draw(backgroundS);
+
+		text.setPosition(cos(clock.getElapsedTime().asMilliseconds()/1000.f*360.f)*10 + GameWidth/2, sin(clock.getElapsedTime().asMilliseconds()/1000.f*360.f)*10 + GameHeight/2); 
+		window.draw(text);
+
+
+		window.display();
+		
+
+	}
+
+
 
 	delete newGame;
     return 0;
@@ -345,6 +427,12 @@ void wys(BlockDomino bd, ::rotate rotate)
 		cerr << "[" << bd.get_value_up() << " : " << bd.get_value_down() << "]";
 	else
 		cerr << "[" << bd.get_value_down() << " : " << bd.get_value_up() << "]";
+}
+
+ostream& operator<<(ostream &os, InterfaceDomino *game)
+{
+	wyswietl(game);
+	return os;
 }
 
 void wyswietl(InterfaceDomino *NewGame)
@@ -581,7 +669,7 @@ bool event_p1(sf::Sprite &blockdominoP1S, InterfaceDomino *newGame, sf::Image &b
 }
 
 
-sf::Sprite blockdominoBoardf(sf::RenderTexture &blockdominoBoard, sf::Image &blockdomino_image, InterfaceDomino *newGame)
+void blockdominoBoardf(sf::RenderTexture &blockdominoBoard, sf::Image &blockdomino_image, InterfaceDomino *newGame)
 {
 	std::stringstream textbuffer;
 	blockdominoBoard.clear(sf::Color::Transparent);
@@ -625,44 +713,42 @@ sf::Sprite blockdominoBoardf(sf::RenderTexture &blockdominoBoard, sf::Image &blo
 			dominobuffer.display();
 
 			sf::Sprite domino(dominobuffer.getTexture());
+			domino.setRotation(0);
 
 			domino.setColor(sf::Color::Yellow);
 			domino.setPosition(0,0);
+			domino.move(sum_of_x,  0.f );
 			if(dominoblock.get_rotate() ==  horizontal_left)
 			{
-				//domino.setRotation(270);
-				/*domino.move(sum_of_x+0.f, 50.f );
-				*/sum_of_x+=blockdomino_image.getSize().y;
+				domino.setRotation(270);
+				domino.move(0.f, blockdomino_image.getSize().x+15.f);
+				sum_of_x+=blockdomino_image.getSize().y;
 			}
-			else if(dominoblock.get_rotate() ==  horizontal_right)
+			else if(dominoblock.get_rotate() ==  horizontal_right )
 			{
-				//domino.setRotation(90);
-				/*domino.move(sum_of_x+0.f, 50.f );
-				*/sum_of_x+=blockdomino_image.getSize().y;
+				domino.setRotation(90);
+				domino.move(blockdomino_image.getSize().y +0.f,0.f+15.f);
+				sum_of_x+=blockdomino_image.getSize().y;
 			}
 			else
 			{
-				//domino.setRotation(0);
-
-				//domino.move(sum_of_x+0.f, 0.f );
-				//sum_of_x+=blockdomino_image.getSize().x;
+				domino.setRotation(0);				
+				domino.move(0.f,0);
+				sum_of_x+=blockdomino_image.getSize().x;
 			}
-			domino.move(i * blockdomino_image.getSize().x + 0.f,  0.f );
-
 
 			blockdominoBoard.draw(domino);
 	}
 
 	blockdominoBoard.display();
 
-	float size;
-	if(many*blockdomino_image.getSize().x > blockdominoBoard.getSize().x)
-	{
-		size = blockdominoBoard.getSize().x / many*blockdomino_image.getSize().x;
-	}
-	else
-		size = 1.f;
-	sf::Sprite blockdominoBoardS = sf::Sprite(blockdominoBoard.getTexture());
-	blockdominoBoardS.scale(size,size);
-	return blockdominoBoardS;
+//	float size;
+//	if(many*blockdomino_image.getSize().x > blockdominoBoard.getSize().x)
+//	{
+//		size = blockdominoBoard.getSize().x / many*blockdomino_image.getSize().x;
+//	}
+//	else
+//		size = 1.f;
+	//blockdominoBoardS.scale(size,size);
+	//return blockdominoBoardS;
 }

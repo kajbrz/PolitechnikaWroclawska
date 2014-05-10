@@ -7,6 +7,7 @@ DominoAI::DominoAI(InterfaceDomino *game, enum level level =  random, int whoIam
 	this->level = level;
 	this->whoIam = whoIam;
 }
+
 DominoAI::DominoAI(void)
 {
 	game = nullptr;

@@ -17,7 +17,9 @@ Domino_NormalRules::Domino_NormalRules(void)
 
 {
 	status =stop;
-	points_minimum = 100;
+	//points_minimum = 100;
+	points_minimum = 10;
+	
 }
 
 Domino_NormalRules::~Domino_NormalRules(void)
@@ -70,7 +72,10 @@ int Domino_NormalRules::pause_game(void)
 
 int Domino_NormalRules::send_block(int indeks, int side)
 {
-
+	if(change == true)
+	{
+		return -1;
+	}
 	/////////////////////////////
 	////Testing correct var at///
 	::pool pool;
@@ -290,10 +295,17 @@ int Domino_NormalRules::test_game(void)
 		change_player();
 	}
 
-	if(points_player1>points_minimum)
+	if(points_player1>=points_minimum)
 	{
 		who_won = 1;
-		return -1;
+		status = stop;
+		return -2;
+	}
+	if(points_player2>=points_minimum)
+	{
+		who_won = 2;
+		status = stop;
+		return -2;
 	}
 
 	//if(get_player_time_end()<=0)
@@ -308,7 +320,7 @@ int Domino_NormalRules::test_game(void)
 		count_points();
 		clear_board();
 		stop_game();
-		return -1; //the game is end
+		return -2; //the game is end
 	}
 
 	if(blockdomino_player1.size() == 0)
@@ -369,8 +381,9 @@ int Domino_NormalRules::draw_domino(int whoplay = -1)
 
 		int *temp_array_of_blocks = new int[1];
 		temp_array_of_blocks[0] = 0;
-		transferdomino(jackpot, player, temp_array_of_blocks,1,false);
+		transferdomino(jackpot, player, temp_array_of_blocks,1,true);
 		delete [] temp_array_of_blocks;
+
 		return 0;
 	}
 }
@@ -435,9 +448,10 @@ void Domino_NormalRules::count_points()
 	{
 		if(sum_block_point_player1 < sum_block_point_player2)
 		{
+
 			sum_block_point_player2 += -sum_block_point_player1;
 
-			sum_block_point_player2 += (sum_block_point_player2%5);
+			sum_block_point_player2 += sum_block_point_player2%5;
 
 			points_player1 += sum_block_point_player2;
 		}
@@ -450,6 +464,8 @@ void Domino_NormalRules::count_points()
 			points_player2 += -sum_block_point_player1;
 		}
 	}
+	points_player1 += points_player1%5;
+	points_player2 += points_player2%5;
 }
 
 void Domino_NormalRules::draw_pulls(void)
