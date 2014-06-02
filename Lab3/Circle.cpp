@@ -1,17 +1,21 @@
 #include "Circle.h"
 
-
 Circle::Circle(float radius, ::location  location)
 {
     this->radius = radius;
     this->location = location;
 }
-
-void Circle::set_location(double x, double y)
+Circle::Circle(float radius, float x, float y)
+{
+    this->radius = radius;
+    location.x = x;
+	location.y = y;
+}
+void Circle::set_location(float x, float y)
 {
 
-    this->location.circle_location_x = x;
-    this->location.circle_location_y = y;
+	this->location.x = x;
+    this->location.y = y;
 }
 
 void Circle::set_location(::location location)
@@ -29,23 +33,42 @@ void Circle::set_radius(float r)
     this->radius = r;
 }
 
-double Circle::get_radius()
+float Circle::get_radius()
 {
     return radius;
 }
 
-double Circle::get_circumference()
+float Circle::get_circumference()
 {
-    return M_PI * 2 * radius;
+	return M_PI* 2* radius;
 }
 
-double Circle::get_area()
+float Circle::get_area()
 {
     return M_PI * radius * radius;
 }
 
 std::ostream & operator<< (std::ostream &wyjscie, const location &s)
  {
-	 return wyjscie << " ( " << s.circle_location_x <<
-		 ";" << s.circle_location_y << ")";
+	 return wyjscie << " ( " << s.x << ";" << s.y << ")";
  }
+
+Circle Circle::operator*(const Circle &circle)
+{
+	Circle circlenew(this->radius,this->location);
+	
+	circlenew.radius *= circle.radius;
+
+	return circlenew;
+}
+
+Circle Circle::operator+(const Circle &circle)
+{
+	Circle circlenew(this->radius,this->location);
+	
+	circlenew.location.x = (circlenew.location.x + circle.location.x) /2;
+	circlenew.location.y = (circlenew.location.y + circle.location.y) /2;
+
+	circlenew.radius += circle.radius;
+	return circlenew;
+}
